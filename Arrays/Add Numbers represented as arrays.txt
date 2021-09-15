@@ -1,0 +1,135 @@
+Problem Description
+Add two numbers represented by two arrays A & B and return the resulting sum as an array.
+
+Input format
+There are three lines of input.
+
+First line will contain two space separated integers N and M respectively.
+
+Next line will contain N space separated integers for Array A.
+
+Next line will contain M space separated integers for Array B.
+
+Output format
+Single integer which will be the sum of the two numbers.
+
+Sample Input 1
+4 3
+
+1 1 2 4
+
+4 5 8
+
+Sample Output 1
+1582
+
+Explanation
+1124 + 458 = 1582
+
+Constraints
+0<=Ai<10
+
+0<=Bi<10
+
+Most significant value will be non-zero in both array.
+
+1<=N, M<=5000
+
+
+
+
+
+
+
+//Complicated the approach
+
+import java.util.*;
+
+
+class AddNumbers{
+    public static void main(String args[]){
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int m = sc.nextInt();
+        List<Integer> A = new ArrayList<>();
+        List<Integer> B = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            A.add(sc.nextInt());
+        }
+        for (int i = 0; i < m; i++) {
+            B.add(sc.nextInt());
+        }
+        List<Integer> result = addNumbers(n, m, A, B);
+        for (Integer x : result) {
+            System.out.print(x);
+        }
+    }
+
+    static List<Integer> addNumbers(int n, int m, List<Integer> A, List<Integer> B){
+
+        
+
+        int min = Math.min(n,m);
+        boolean big = false;
+        if(n>m) {
+            big = true;
+        }
+        int tn = n;
+        int tm = m;
+        List<Integer> result = new ArrayList<>();
+
+        m--;
+        n--;
+
+        int carry = 0;
+        for(int i=0;i<min;i++) {
+            int a = A.get(n);
+            int b = B.get(m);
+            m--;
+            n--;
+
+            int sum = (a+b)+carry;
+            
+            result.add((sum%10));
+
+            carry = sum/10;
+
+        }
+        int leftLength=0;
+
+        if(big) {
+            leftLength = tn-tm;
+            for(int i=0;i<leftLength;i++) {
+                int a = A.get(n);
+                 n--;
+
+                int sum = a+carry;
+            
+                result.add((sum%10));
+
+                carry = sum/10;
+            }
+        } else {
+            
+            leftLength = tm-tn;
+            for(int i=0;i<leftLength;i++) {
+                int a = B.get(m);
+                 m--;
+
+                int sum = a+carry;
+            
+                result.add((sum%10));
+
+                carry = sum/10;
+            }
+
+        }
+        if(carry>0) {
+            result.add(carry);
+        }
+
+        Collections.reverse(result);
+
+        return result;
+    }
+}
