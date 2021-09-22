@@ -1,0 +1,76 @@
+Problem Description
+Given two strings s and t, write a function to determine if t is an anagram of s.
+
+Note: You may assume the string contains only lowercase alphabets.
+
+Input format
+You will be given two strings in two separate lines.
+
+Output format
+Print "true" if both the strings are anagram otherwise “false”.
+
+Constraints
+Length of string <= 100000
+
+Sample Input 1
+anagram
+
+nagaram
+
+Sample Output 1
+true
+
+Sample Input 2
+rat
+
+car
+
+Sample Output 2
+false
+
+
+
+
+
+
+
+
+
+import java.io.*;
+import java.util.*;
+
+public class ValidAnagram {
+    public boolean validAnagram(String s, String t) {
+        int[] hash = new int[26];
+        if(s.length() != t.length()) {
+            return false;
+        }
+
+        for(char c: s.toCharArray()) {
+
+            int index = c-97;
+            hash[index]++;
+        }
+        for(char c: t.toCharArray()) {
+
+            int index = c-97;
+            hash[index]--;
+        }
+        for(int i=0;i<26;i++) {
+            if(hash[i]==1)
+                return false;
+        }
+        return true;
+
+
+    }
+
+    public static void main(String[] args) throws IOException {
+        BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+        String s = in.readLine();
+        String t = in.readLine();
+
+        boolean result = new ValidAnagram().validAnagram(s, t);
+        System.out.print(String.valueOf(result));
+    }
+}
