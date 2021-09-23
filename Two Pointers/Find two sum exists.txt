@@ -1,0 +1,100 @@
+Problem Description
+Given a sorted array of integers and a target, find if there’s a pair of elements that add up to the target. Return true if such a pair can be found, and false otherwise.
+
+Input format
+There are 3 lines of input.
+
+First line contains an Integer N that represents the number of elements in the array.
+
+Second line contains N space separated integers, which are members of the array.
+
+Third line contains an integer X, which is the target value.
+
+Output format
+Print "Present" if there is such a pair present in the array otherwise print "Not Present".
+
+
+//hash technique
+import java.util.*;
+
+class TwoSumInSortedArray {
+    public static void main(String args[]) {
+        Scanner sc = new Scanner(System.in);
+
+        int n = sc.nextInt();
+        int arr[] = new int[n];
+
+        for (int i = 0; i < n; i++) {
+            arr[i] = sc.nextInt();
+        }
+        int k = sc.nextInt();
+
+        boolean res = twoSumInSortedArray(n, arr, k);
+
+        String ans = (res) ? "Present" : "Not Present";
+
+        System.out.println(ans);
+
+    }
+
+    static boolean twoSumInSortedArray(int n, int arr[], int k) {
+
+        Set<Integer> hash = new HashSet<>();
+
+        for(int i=0;i<n;i++) {
+
+            if(hash.contains((k-arr[i]))) {
+
+                return true;
+            }
+            hash.add(arr[i]);
+
+        }
+        return false;
+    }
+}
+
+
+
+
+//two pointer technique
+import java.util.*;
+
+class TwoSumInSortedArray {
+    public static void main(String args[]) {
+        Scanner sc = new Scanner(System.in);
+
+        int n = sc.nextInt();
+        int arr[] = new int[n];
+
+        for (int i = 0; i < n; i++) {
+            arr[i] = sc.nextInt();
+        }
+        int k = sc.nextInt();
+
+        boolean res = twoSumInSortedArray(n, arr, k);
+
+        String ans = (res) ? "Present" : "Not Present";
+
+        System.out.println(ans);
+
+    }
+
+    static boolean twoSumInSortedArray(int n, int arr[], int k) {
+
+        int start = 0;
+        int end= n-1;
+        while(start < end) {
+            if(arr[start]+arr[end] > k) {
+                end--;
+            }
+            else if(arr[start] + arr[end] < k) {
+                start++;
+            }
+            else if(arr[start]+arr[end]==k) {
+                return true;
+            }
+        }
+        return false;
+    }
+}
